@@ -36,6 +36,30 @@ post '/metrics' do
   body response
 end
 
+get '/ads/:id' do
+  ad_id = params[:id].gsub('-','_').to_sym
+  images = {
+    ad_1: 'http://i.imgur.com/MjogeKX.jpg',
+    ad_2: 'http://i.imgur.com/MpAmtmO.jpg',
+    ad_3: 'http://i.imgur.com/6yZAji8.jpg'
+  }
+  headlines = {
+    ad_1: 'This is a classy ad',
+    ad_2: 'This is a cool ad',
+    ad_3: 'This is a great ad'
+  }
+  @image = images[ad_id]
+  @headline = headlines[ad_id]
+
+  if @image.nil? || @headline.nil?
+    status 404
+    'Ad not found!'
+  else
+    status 200
+    erb :ad
+  end
+end
+
 
 def post_to_slack(text)
   payload = {
