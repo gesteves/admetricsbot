@@ -12,12 +12,12 @@ get '/' do
   'howdy :wave:'
 end
 
-get '/endpoint' do
+get '/metrics' do
   status 400
   'Did you mean to make a POST request?'
 end
 
-post '/endpoint' do
+post '/metrics' do
   body = request.body.read
   begin
     JSON.parse(body)
