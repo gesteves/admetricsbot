@@ -13,9 +13,23 @@ get '/' do
 end
 
 post '/endpoint' do
-  post_to_slack(request.body.read)
-  status 200
+  body = request.body.read
+
+  begin
+    JSON.parse(body)
+    post_to_slack(body)
+    code = 200
+    response = 'ok'
+  rescue JSON::ParserError => e
+    code = 400
+    response = 'Looks like that’s not valid json!'
+  rescue => e
+    code = 500
+    response = 'Uh oh, something bad happened.'
+  end
+  status code
   headers "Access-Control-Allow-Origin" => "*"
+  body response
 end
 
 
