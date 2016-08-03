@@ -9,7 +9,7 @@ configure do
 end
 
 get '/' do
-  'howdy :wave:'
+  'Good luck with your interview!'
 end
 
 get '/metrics' do
