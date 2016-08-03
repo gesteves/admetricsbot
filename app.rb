@@ -12,9 +12,13 @@ get '/' do
   'howdy :wave:'
 end
 
+get '/endpoint' do
+  status 400
+  'Did you mean to make a POST request?'
+end
+
 post '/endpoint' do
   body = request.body.read
-
   begin
     JSON.parse(body)
     post_to_slack(body)
