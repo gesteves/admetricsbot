@@ -46,6 +46,7 @@ get '/ads/:id' do
 
   @headline = headlines[@ad_id]
 
+  headers "Access-Control-Allow-Origin" => "*"
   if @headline.nil?
     status 404
     'Ad not found!'
