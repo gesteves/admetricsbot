@@ -21,7 +21,7 @@ post '/metrics' do
   body = request.body.read
   begin
     JSON.parse(body)
-    post_to_slack(body)
+    post_to_slack(body) if ENV['POST_TO_SLACK'].present?
     code = 200
     response = 'Woo! It worked!'
   rescue JSON::ParserError
